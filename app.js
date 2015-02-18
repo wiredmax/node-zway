@@ -23,24 +23,26 @@ client({ path: 'http://10.0.50.10:8083/ZWaveAPI/Data/0' }).then(function(res) {
       var sensorMultilevel = instance.commandClasses[0x31];
 
       if(_.isObject(sensorBinary)) {
+        console.log("\nBinary sensors:");
         _.forEach(sensorBinary.data, function(val, key) {
           // Not a sensor type
           var sensor_type = parseInt(key, 10);
           if (isNaN(sensor_type)) {
               return;
           }
-          console.log(val.sensorTypeString.value + ": " + val.level.value)
+          console.log("(" + key + ") " + val.sensorTypeString.value + ": " + val.level.value)
         });
       }
 
       if(_.isObject(sensorMultilevel)) {
+        console.log("\nMulti-Level sensors:");
         _.forEach(sensorMultilevel.data, function(val, key) {
           // Not a sensor type
           var sensor_type = parseInt(key, 10);
           if (isNaN(sensor_type)) {
               return;
           }
-          console.log(val.sensorTypeString.value + ": " + val.val.value + " " + val.scaleString.value)
+          console.log("(" + key + ") " + val.sensorTypeString.value + ": " + val.val.value + " " + val.scaleString.value)
         });
       }
 
