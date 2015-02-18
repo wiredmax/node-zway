@@ -10,9 +10,9 @@ client({ path: 'http://10.0.50.10:8083/ZWaveAPI/Data/0' }).then(function(res) {
   var response = res.entity;
   var allDevices = res.entity;
 
-  for(deviceKey in allDevices.devices) {
-    for(instance in allDevices.devices[deviceKey].instances) {
-      var currentInstance = allDevices.devices[deviceKey].instances[instance];
+  _.forEach(allDevices.devices, function(device, deviceId) {
+    for(instance in allDevices.devices[deviceId].instances) {
+      var currentInstance = allDevices.devices[deviceId].instances[instance];
       var sensorBinary = currentInstance.commandClasses[0x30];
       var sensorMultilevel = currentInstance.commandClasses[0x31];
 
@@ -37,8 +37,10 @@ client({ path: 'http://10.0.50.10:8083/ZWaveAPI/Data/0' }).then(function(res) {
           console.log(val.sensorTypeString.value + ": " + val.val.value + " " + val.scaleString.value)
         });
       }
+
+      // Add meters and alarms
     }
-  }
+  });
 });
 
 // Inspired from https://github.com/Z-Wave-Me/ExpertUI/blob/79a8955bcdb9e6c8156720ead2688da341358cc2/app/core/controllers/controllers.js
