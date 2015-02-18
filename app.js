@@ -11,10 +11,9 @@ client({ path: 'http://10.0.50.10:8083/ZWaveAPI/Data/0' }).then(function(res) {
   var allDevices = res.entity;
 
   _.forEach(allDevices.devices, function(device, deviceId) {
-    for(instance in allDevices.devices[deviceId].instances) {
-      var currentInstance = allDevices.devices[deviceId].instances[instance];
-      var sensorBinary = currentInstance.commandClasses[0x30];
-      var sensorMultilevel = currentInstance.commandClasses[0x31];
+    _.forEach(device.instances, function(instance, instanceId) {
+      var sensorBinary = instance.commandClasses[0x30];
+      var sensorMultilevel = instance.commandClasses[0x31];
 
       if(_.isObject(sensorBinary)) {
         _.forEach(sensorBinary.data, function(val, key) {
@@ -39,7 +38,7 @@ client({ path: 'http://10.0.50.10:8083/ZWaveAPI/Data/0' }).then(function(res) {
       }
 
       // Add meters and alarms
-    }
+    });
   });
 });
 
