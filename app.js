@@ -51,7 +51,7 @@ client({ path: 'http://10.0.50.10:8083/ZWaveAPI/Data/0' }).then(function(res) {
         });
       }
 
-      // Add meters and alarms
+      // FIXME: Add meters and alarms
     });
   });
 });
