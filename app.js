@@ -19,6 +19,11 @@ client({ path: 'http://10.0.50.10:8083/ZWaveAPI/Data/0' }).then(function(res) {
     console.log("### " + device.data.givenName.value + " (" + deviceId + ") ###");
 
     _.forEach(device.instances, function(instance, instanceId) {
+
+      if (instanceId == 0 && device.instances.length > 1) {
+        return;
+      }
+
       var sensorBinary = instance.commandClasses[0x30];
       var sensorMultilevel = instance.commandClasses[0x31];
 
