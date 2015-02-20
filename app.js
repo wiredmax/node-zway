@@ -1,4 +1,5 @@
 var _ = require("lodash");
+var moment = require("moment");
 
 var rest, mime, client;
 
@@ -35,7 +36,8 @@ client({ path: 'http://10.0.50.10:8083/ZWaveAPI/Data/0' }).then(function(res) {
           if (isNaN(sensorType)) {
               return;
           }
-          console.log("(" + key + ") " + val.sensorTypeString.value + ": " + val.level.value)
+
+          console.log("(" + key + ") " + val.sensorTypeString.value + ": " + val.level.value + " (" + moment.unix(val.updateTime).format("LLL") + ")")
         });
       }
 
@@ -47,7 +49,7 @@ client({ path: 'http://10.0.50.10:8083/ZWaveAPI/Data/0' }).then(function(res) {
           if (isNaN(sensorType)) {
               return;
           }
-          console.log("(" + key + ") " + val.sensorTypeString.value + ": " + val.val.value + " " + val.scaleString.value)
+          console.log("(" + key + ") " + val.sensorTypeString.value + ": " + val.val.value + " " + val.scaleString.value + " (" + moment.unix(val.updateTime).format("LLL") + ")")
         });
       }
 
